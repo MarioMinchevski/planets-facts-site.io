@@ -1,7 +1,7 @@
 import { PlanetPreviewType } from "../../utils/types";
 
 export function PlanetPreview({ images }: PlanetPreviewType) {
-    const { geology, internal, planet } = images
+    const { planet } = images
 
     return (
         <>
