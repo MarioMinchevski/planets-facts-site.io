@@ -1,7 +1,7 @@
 import { PlanetType } from "./types";
 
 export async function getSpecificPlanet(name: string): Promise<PlanetType> {
-    const res = await fetch('../data.json')
+    const res = await fetch('/data.json')
 
     if (!res.ok) {
         throw new Error('Something went wrong, try again');
