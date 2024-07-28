@@ -1,0 +1,85 @@
+@use '../../css/abstracts/mixins' as *;
+@use '../../css/abstracts/variables' as *;
+
+.navbar {
+    padding: 1.375rem 2.563rem 1.688rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid rgba($color-neutral-base, 0.20);
+
+    h1 {
+        text-transform: uppercase;
+        font-size: $font-size-headidng-main-nav;
+        font-family: $font-family-secondary;
+    }
+
+    .navbar__menu {
+        display: flex;
+        align-items: center;
+        gap: 2.063rem;
+
+        .navbar__menu-item {
+            a {
+                font-size: $font-size-body-base;
+                font-weight: $font-weight-bold;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                color: rgba($color-neutral-base, 0.75);
+                transition: color 300ms ease-in-out;
+                position: relative;
+
+                &::before {
+                    transition: width 300ms ease-in-out;
+                    position: absolute;
+                    content: '';
+                    left: 0;
+                    top: -2rem;
+                    height: 4px;
+                    width: 0;
+                }
+
+                &:hover::before {
+                    width: 100%;
+                }
+
+                &:hover {
+                    color: $color-neutral-base;
+                }
+            }
+
+            &.planet-mercury a::before {
+                background-color: $color-primary;
+            }
+
+            &.planet-venus a::before {
+                background-color: $color-secondary;
+            }
+
+            &.planet-earth a::before {
+                background-color: $color-tertiary;
+            }
+
+            &.planet-mars a::before {
+                background-color: $color-quaternary;
+            }
+
+            &.planet-jupiter a::before {
+                background-color: $color-quinary;
+            }
+
+            &.planet-saturn a::before {
+                background-color: $color-senary;
+            }
+
+            &.planet-uranus a::before {
+                background-color: $color-septenary;
+            }
+
+            &.planet-neptune a::before {
+                background-color: $color-octonary;
+            }
+        }
+    }
+}

@@ -1,0 +1,22 @@
+@use '../abstracts/variables' as *;
+
+body {
+    min-height: 100vh;
+    font-family: $font-family-base;
+    background-color: $color-neutral-base-secondary;
+    background-image: url('/background-stars.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: $color-neutral-base;
+}
+
+.planet-page {
+    padding: 7.875rem 10.313rem 3.5rem;
+
+    .planet-page-main {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-left: 10.625rem;
+    }
+}

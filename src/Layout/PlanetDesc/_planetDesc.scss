@@ -1,0 +1,42 @@
+@use '../../css/abstracts/mixins' as *;
+@use '../../css/abstracts/variables' as *;
+
+.planet-desc {
+    max-width: 350px;
+
+
+    .planet-desc__name {
+        font-family: $font-family-secondary;
+        font-size: $font-size-headidng-main-base;
+        margin-bottom: 1rem;
+    }
+
+    .planet-desc__text {
+        font-size: $font-size-body-large;
+        font-weight: $font-weight-light;
+        line-height: 25px;
+        color: $color-neutral-base;
+        margin-bottom: 1.5rem;
+    }
+
+    .planet-desc__source {
+        font-size: $font-size-body-large;
+        color: $color-neutral-base-quaternary;
+        display: flex;
+        align-items: center;
+
+        a {
+            font-weight: $font-weight-bold;
+            color: $color-neutral-base-quaternary;
+            text-decoration: underline;
+            display: flex;
+            align-items: center;
+            margin-left: 0.5rem;
+
+            svg {
+                margin-left: 0.5rem;
+            }
+        }
+    }
+
+}

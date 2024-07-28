@@ -1,0 +1,9 @@
+@use '../../css/abstracts/mixins' as *;
+@use '../../css/abstracts/variables' as *;
+
+.planet-preview-image-box {
+    width: 290px;
+    height: 290px;
+
+    flex-shrink: 0;
+}
