@@ -1,69 +1,77 @@
 import { useQuery } from "@tanstack/react-query";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useLocation, useParams } from "react-router-dom";
 import { getSpecificPlanet } from "../../utils/getSpecificPlanet";
-import { validPlanets } from "../../utils/globalVars";
+import { validPlanets, validSections } from "../../utils/globalVars";
 import { PlanetInfoItemType, PlanetType } from "../../utils/types";
 import { PlanetPreview } from "../../Layout/PlanetPreview/PlanetPreview";
 import { PlanetDesc } from "../../Layout/PlanetDesc/PlanetDesc";
 import { PlanetInfo } from "../../Layout/PlanetInfo/PlanetInfo";
 
 export function PlanetPage() {
-    const { name, section } = useParams<{ name: string; section?: string }>();
+    const { name, section } = useParams<{ name: string; section?: string }>()
+    const location = useLocation()
 
-    console.log(section, '|', name);
-
-    if (!validPlanets.includes(name!)) {
-        return <Navigate to="/planet/Mercury" replace />;
-    }
+    const currentLocation = location.pathname
+    const validPathnames = validSections.map(s => `/planet/${name}/${s}`)
 
     const { data: specificPlanetData, isLoading, error } = useQuery<PlanetType>({
         queryKey: ['specificPlanetData', name],
         queryFn: () => {
             if (name) {
-                return getSpecificPlanet(name);
+                return getSpecificPlanet(name)
             }
-            throw new Error("Name parameter is missing");
+            throw new Error("Name parameter is missing")
         },
-    });
+    })
 
-    if (!specificPlanetData) {
-        return <div>No data found</div>;
+    // edge case to prevenet a user to "mess" with the url in the browser bar and receive unexpected results
+
+    if (!validPlanets.includes(name!)) {
+        return <Navigate to="/planet/Mercury/overview" replace />
     }
 
-    const planetInfoConfig: PlanetInfoItemType[] = [
+    if (!validPathnames.includes(currentLocation)) {
+        return <Navigate to={`/planet/${name}/overview`} replace />
+    }
+
+    const planetInfoConfig: PlanetInfoItemType[] = specificPlanetData ? [
         {
             title: 'Rotation',
-            value: specificPlanetData.rotation
+            value: specificPlanetData.rotation || 'N/A'
         },
         {
             title: 'Revolution Time',
-            value: specificPlanetData.revolution
+            value: specificPlanetData.revolution || 'N/A'
         },
         {
             title: 'Radius',
-            value: specificPlanetData.radius
+            value: specificPlanetData.radius || 'N/A'
         },
         {
-            title: 'Temeperature',
-            value: specificPlanetData.temperature
+            title: 'Temperature',
+            value: specificPlanetData.temperature || 'N/A'
         }
-    ]
+    ] : []
 
-    if (isLoading) return <div>Loading...</div>;
-    if (error) return <div>Error...</div>;
+    if (isLoading) return <div>Loading...</div>
+    if (error) return <div>Error...</div>
 
     return (
         <div className="planet-page">
             <div className="planet-page-main">
-                <PlanetPreview {...specificPlanetData} />
-                <div className="planet-overview-info">
-                    <PlanetDesc
-                        {...specificPlanetData}
-                        currentSection={section || "overview"}
-                    />
-                </div>
+                {specificPlanetData && (
+                    <>
+                        <PlanetPreview {...specificPlanetData} />
+                        <div className="planet-overview-info">
+                            <PlanetDesc
+                                {...specificPlanetData}
+                                currentSection={section || "overview"}
+                            />
+                        </div>
+                    </>
+                )}
             </div>
             <PlanetInfo infoItems={planetInfoConfig} />
         </div>
-    );
+    )
 }

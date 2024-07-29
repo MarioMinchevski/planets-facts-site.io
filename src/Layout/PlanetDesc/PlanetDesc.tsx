@@ -4,8 +4,7 @@ import { PlanetNav } from "../PlaneNav/PlanetNav";
 
 export function PlanetDesc({ geology, name, overview, structure, }: PlanetDescType) {
 
-    const { section } = useParams<{ section?: string }>();
-    console.log(section)
+    const { section } = useParams<{ section?: string }>()
 
     const getContent = () => {
         switch (section) {
@@ -18,7 +17,7 @@ export function PlanetDesc({ geology, name, overview, structure, }: PlanetDescTy
             default:
                 return overview.content;
         }
-    };
+    }
 
     return (
         <div className="planet-desc">

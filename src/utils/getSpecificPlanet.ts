@@ -15,7 +15,5 @@ export async function getSpecificPlanet(name: string): Promise<PlanetType> {
         throw new Error('Planet not found')
     }
 
-    console.log(specificPlanet)
-
     return specificPlanet
 }

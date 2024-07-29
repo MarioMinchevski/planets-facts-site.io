@@ -9,7 +9,7 @@ function App() {
       <Routes>
         <Route path="planet/:name" element={<PlanetPage />} />
         <Route path="planet/:name/:section" element={<PlanetPage />} />
-        <Route path="/" element={<Navigate to="/planet/Mercury" />} />
+        <Route path="*" element={<Navigate to="/planet/Mercury" />} />
       </Routes>
     </Router>
   )
